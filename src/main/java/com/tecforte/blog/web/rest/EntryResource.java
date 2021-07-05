@@ -62,13 +62,11 @@ public class EntryResource {
             throw new BadRequestAlertException("A new entry cannot already have an ID", ENTITY_NAME, "idexists");
         }
 
-        // BlogDTO b = new BlogDTO();
-        // if (b.isPositive() && (entryDTO.getEmoji() == Emoji.SAD || entryDTO.getEmoji() == Emoji.ANGRY)) {
-        // throw new BadRequestAlertException("Invalid Emoji", ENTITY_NAME, "invalidEmoji");
-        // }
+        // Emoji validation
         if (entryDTO.getEmoji() == Emoji.SAD || entryDTO.getEmoji() == Emoji.ANGRY) {
-            throw new BadRequestAlertException("Invalid Emoji", ENTITY_NAME, "invalidEmoji");
+        throw new BadRequestAlertException("Invalid Emoji", ENTITY_NAME, "invalidEmoji");
         }
+        
 
         EntryDTO result = entryService.save(entryDTO);
         return ResponseEntity.created(new URI("/api/entries/" + result.getId() + result.getEmoji()))
