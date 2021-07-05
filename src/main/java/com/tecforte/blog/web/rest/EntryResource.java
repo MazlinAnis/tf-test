@@ -64,9 +64,13 @@ public class EntryResource {
 
         // Emoji validation
         if (entryDTO.getEmoji() == Emoji.SAD || entryDTO.getEmoji() == Emoji.ANGRY) {
-        throw new BadRequestAlertException("Invalid Emoji", ENTITY_NAME, "invalidEmoji");
+            throw new BadRequestAlertException("Invalid Emoji", ENTITY_NAME, "invalidEmoji");
         }
-        
+
+        // Content validation
+        if (entryDTO.getContent() == "SAD" || entryDTO.getContent() == "FEAR" || entryDTO.getContent() == "LONELY") {
+            throw new BadRequestAlertException("Invalid Content", ENTITY_NAME, "invalidContent");
+        }
 
         EntryDTO result = entryService.save(entryDTO);
         return ResponseEntity.created(new URI("/api/entries/" + result.getId() + result.getEmoji()))
